@@ -1,34 +1,43 @@
-// Initial Values for grid
-let rows = 16;
-let columns = 16; 
-let darkenLevel = 0;
-
 const gridContainer = document.querySelector(".gridContainer");
-const colorTool = document.querySelector("colorTool");
-const rainbowTool = document.querySelector("rainbowTool");
-const clearTool = document.getElementById("clearTool");
+const colorTool = document.querySelector("#colorTool");
+const rainbowTool = document.querySelector("#rainbowTool");
 const gridSizeTool = document.querySelector("#gridSizeTool");
 const displayInputValue = document.querySelector("#displayInputValue");
 const eraserTool = document.querySelector("#eraserTool");
+const clearTool = document.getElementById("clearTool"); // Testing by ID
+const buttons = document.querySelectorAll('button');
 
-function darkenPixel(div) {
-    darkenLevel += 0.1;
-    div.style.backgroundColor=`rgba(0,0,0,${darkenLevel})`;
-}
+// Initial Values for grid
+let darkenLevel = 0;
+let currentColor = colorTool.value;
+let grid = gridSizeTool.value;
 
 function selectedColor(){
-    console.log("hi");
+    if(rainbowTool.classList.contains('clicked')){
+        currentColor = getRandomColor();
+        return currentColor
+    } else{
+        return currentColor
+    }
+};
+
+function getRandomColor(){
+    r = Math.floor(Math.random() * 256);
+    g = Math.floor(Math.random() * 256);
+    b = Math.floor(Math.random() * 256);
+
+    return `rgb(${r},${g},${b})`;
 }
 
 function createPixelElement(){
     const div = document.createElement("div")
     div.setAttribute("class", "pixel");
+
     div.addEventListener("mouseover", () => {
-        selectedColor()
-        div.style.backgroundColor="blue";
+        div.style.backgroundColor= selectedColor();
     });
     return div
-}
+};
 
 // To Populate the Grid to adequate size.
 function setUpGrid(rows, columns){
@@ -40,35 +49,63 @@ function setUpGrid(rows, columns){
             gridRow.appendChild(div);
         }
     }
-
+    // Set Grid Size in CSS
     gridContainer.style.setProperty('--rows', rows); // Set CSS variable for number of rows
     gridContainer.style.setProperty('--cols', columns); // Set CSS variable for number of columns
-}
+};
 
 function clearSketch(){
-    console.log("Hello");
     gridContainer.innerHTML ='';
-    setUpGrid();
-}
+    
+};
 
 function setDisplayValue(){
     displayInputValue.textContent = `${gridSizeTool.value} x ${gridSizeTool.value}`;
-}
+};
 
-clearTool.addEventListener("click", () => {
-    clearSketch();
+colorTool.addEventListener("input", () => {
+    const color = colorTool.value;
+    const r = parseInt(color.substr(1,2), 16);
+    const g = parseInt(color.substr(3,2), 16);
+    const b = parseInt(color.substr(5,2), 16);
+    currentColor = (`rgb(${r},${g},${b})`);
+    // Remove clicked from buttons.
+    buttons.forEach(btn => btn.classList.remove('clicked'));
+});
+
+rainbowTool.addEventListener("click", () =>{
+    return getRandomColor();
+});
+
+eraserTool.addEventListener("click", () => {
+    currentColor = "rgb(255,255,255)";
+    // colorTool.value = '#FFFFFF';
 });
 
 gridSizeTool.addEventListener("input", () => {
-    let grid = gridSizeTool.value;
-    console.log(grid);
     setDisplayValue();
     clearSketch();
+    grid = gridSizeTool.value;
     setUpGrid(grid,grid);
-    console.log('working');
+    buttons.forEach(btn => btn.classList.remove('clicked'));
 });
 
+clearTool.addEventListener("click", () =>{
+    clearSketch()
+    setUpGrid(grid,grid);
+});
+
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove 'clicked' class from all buttons
+      buttons.forEach(btn => btn.classList.remove('clicked'));
+      
+      // Add 'clicked' class to the clicked button
+      this.classList.add('clicked');
+    });
+  });
+
 // Inital Setup.
-displayInputValue.textContent = `${rows} x ${columns}`;
-gridSizeTool.value = `${rows}`;
-setUpGrid(rows, columns);
+displayInputValue.textContent = `${grid} x ${grid}`;
+gridSizeTool.value = `${grid}`;
+setUpGrid(grid, grid);

@@ -12,6 +12,7 @@ header {
     padding: 10px;
     margin-bottom: 50px;
     background-color: rgb(140, 211, 234);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .sketchContainer {
@@ -32,10 +33,16 @@ header {
 }    
 
 button {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     padding: 10px 20px;
     border: 1px solid var(black);
     border-radius: 2px;
+    font-size: 16px;
     width: 150px;
+}
+
+.clicked {
+    background-color: rgb(89, 165, 246);
 }
 
 #colorTool {
@@ -51,7 +58,6 @@ button {
 
   #colorTool::-webkit-color-swatch {
     border-radius: 15px;
-    border: none;
   }
 
   #colorTool::-moz-color-swatch {
@@ -62,9 +68,15 @@ button {
 .gridContainer {
     display: flex;
     flex-wrap: wrap;
-    width: 500px;
-    height: 500px;
+    min-width: 500px;
+    min-height: 500px;
     border: 1px solid black;
+}
+
+#displayInputValue {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 10px;
+    font-size: 24px;
 }
 
 .pixel {
@@ -74,6 +86,5 @@ button {
 }
 
 footer {
-    padding: 20px; /* Adjust padding as needed */
     text-align: center;
 }
