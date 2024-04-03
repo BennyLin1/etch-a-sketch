@@ -1,6 +1,8 @@
 body {
     margin: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -9,13 +11,53 @@ header {
     align-items: center;
     padding: 10px;
     margin-bottom: 50px;
+    background-color: rgb(140, 211, 234);
 }
 
 .sketchContainer {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 50px;
+    flex: 1; /*fill body for footer*/
 }
+
+.functionContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    gap: 10px;
+}    
+
+button {
+    padding: 10px 20px;
+    border: 1px solid var(black);
+    border-radius: 2px;
+    width: 150px;
+}
+
+#colorTool {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 150px;
+    height: 150px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  #colorTool::-webkit-color-swatch {
+    border-radius: 15px;
+    border: none;
+  }
+
+  #colorTool::-moz-color-swatch {
+    border-radius: 15px;
+    border: none;
+  }
 
 .gridContainer {
     display: flex;
@@ -26,17 +68,12 @@ header {
 }
 
 .pixel {
-    background-color: aquamarine;
+    background-color: white;
     width: calc(500px / var(--rows));
     height: calc(500px / var(--cols));
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     padding: 20px; /* Adjust padding as needed */
-    box-sizing: border-box; /* Ensure padding is included in width */
     text-align: center;
 }
