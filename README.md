@@ -1,4 +1,3 @@
-# etch-a-sketch
 # Project: Etch-a-Sketch inspired by the Odin Project.
 
 Live site: https://bennylin1.github.io/etch-a-sketch/
